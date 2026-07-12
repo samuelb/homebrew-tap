@@ -1,34 +1,23 @@
-# homebrew-whirr
+# homebrew-tap
 
-A [Homebrew](https://brew.sh) tap for [Whirr](https://github.com/samuelb/whirr) —
-a tiny system-tray player for internet radio (MP3) streams.
+A personal [Homebrew](https://brew.sh) tap.
 
-## Install
+## [Whirr](https://github.com/samuelb/whirr)
+
+A tiny system-tray player for internet radio (MP3) streams.
 
 ```bash
-brew install --cask samuelb/whirr/whirr
+brew install --cask samuelb/tap/whirr
 ```
 
 That is shorthand for:
 
 ```bash
-brew tap samuelb/whirr
+brew tap samuelb/tap
 brew install --cask whirr
 ```
 
-## Upgrade
-
-```bash
-brew upgrade --cask whirr
-```
-
-## Uninstall
-
-```bash
-brew uninstall --cask whirr
-```
-
-## Maintenance
+Upgrade with `brew upgrade --cask whirr`, uninstall with `brew uninstall --cask whirr`.
 
 `Casks/whirr.rb` is updated automatically by the
 [Whirr release workflow](https://github.com/samuelb/whirr/blob/main/.github/workflows/release.yml)
