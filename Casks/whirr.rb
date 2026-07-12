@@ -8,7 +8,7 @@ cask "whirr" do
   desc "Tiny system-tray player for internet radio (MP3) streams"
   homepage "https://github.com/samuelb/whirr"
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   app "Whirr.app"
 
