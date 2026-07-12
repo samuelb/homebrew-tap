@@ -22,3 +22,24 @@ Upgrade with `brew upgrade --cask whirr`, uninstall with `brew uninstall --cask 
 `Casks/whirr.rb` is updated automatically by the
 [Whirr release workflow](https://github.com/samuelb/whirr/blob/main/.github/workflows/release.yml)
 on every tagged release — no manual edits needed.
+
+## [somad](https://github.com/samuelb/somad)
+
+A client for streaming and exploring SomaFM radio channels.
+
+```bash
+brew install samuelb/tap/somad
+```
+
+That is shorthand for:
+
+```bash
+brew tap samuelb/tap
+brew install somad
+```
+
+Upgrade with `brew upgrade somad`, uninstall with `brew uninstall somad`.
+
+`Formula/somad.rb` is updated automatically by the
+[somad release workflow](https://github.com/samuelb/somad/blob/main/.github/workflows/release.yml)
+on every tagged release — no manual edits needed.
