@@ -1,6 +1,6 @@
 # homebrew-tap
 
-A personal [Homebrew](https://brew.sh) tap.
+[Homebrew](https://brew.sh) tap for my apps.
 
 ## [Whirr](https://github.com/samuelb/whirr)
 
