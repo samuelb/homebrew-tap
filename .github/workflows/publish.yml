@@ -38,6 +38,9 @@ jobs:
       - name: Check out this repo
         uses: actions/checkout@v7
         with:
+          # Explicit: inside a reusable workflow, github.repository (the
+          # default) is the *caller's* repo, not this one.
+          repository: samuelb/homebrew-tap
           token: ${{ secrets.tap_token }}
           path: tap
 
@@ -52,14 +55,17 @@ jobs:
           fi
           cp -Rv ../rendered/. .
 
-          if git diff --quiet; then
+          # add first: `git diff --quiet` alone would miss brand-new
+          # (untracked) formulas/casks.
+          git add -A
+          if git diff --cached --quiet; then
             echo "Tap already up to date; nothing to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "$COMMIT_MESSAGE"
+          git commit -m "$COMMIT_MESSAGE"
           # Another app's release may have pushed between our checkout and
           # this push; rebase once and retry.
           git push || { git pull --rebase && git push; }
