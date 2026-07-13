@@ -1,0 +1,65 @@
+name: Publish
+
+# Reusable workflow shared by samuelb/somad and samuelb/whirr's release
+# pipelines. Each caller stages its rendered tap files as an artifact laid
+# out exactly like this repo (Formula/<name>.rb, Casks/<name>.rb) earlier in
+# the same run, then calls this workflow to land the whole tree here. Kept
+# here (rather than duplicated per-caller) because both release pipelines
+# otherwise do the exact same checkout / commit / push dance against this
+# repo.
+
+on:
+  workflow_call:
+    inputs:
+      artifact_name:
+        description: "Name of the artifact (uploaded earlier in this run) containing rendered tap files in this repo's layout (Formula/, Casks/)"
+        required: true
+        type: string
+      commit_message:
+        description: "Commit message to use when the rendered files differ from what's committed"
+        required: true
+        type: string
+    secrets:
+      tap_token:
+        description: "Token with write access to this repo (the caller's default GITHUB_TOKEN can't push here)"
+        required: true
+
+jobs:
+  publish:
+    name: Publish tap files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download rendered tap files
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: rendered
+
+      - name: Check out this repo
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.tap_token }}
+          path: tap
+
+      - name: Copy, commit and push
+        working-directory: tap
+        env:
+          COMMIT_MESSAGE: ${{ inputs.commit_message }}
+        run: |
+          if [ -z "$(find ../rendered -type f)" ]; then
+            echo "::error::artifact '${{ inputs.artifact_name }}' contained no files"
+            exit 1
+          fi
+          cp -Rv ../rendered/. .
+
+          if git diff --quiet; then
+            echo "Tap already up to date; nothing to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "$COMMIT_MESSAGE"
+          # Another app's release may have pushed between our checkout and
+          # this push; rebase once and retry.
+          git push || { git pull --rebase && git push; }
