@@ -1,7 +1,7 @@
 cask "whirr" do
-  version "0.5.4"
+  version "0.5.5"
   # Release automation replaces this placeholder with the published .dmg checksum.
-  sha256 "8c902931831c514f6e3bb8f8e90651e83213916923fa7368b7f5b569e5c2fdbb"
+  sha256 "3d390eea6ddc60f43d356bc53f10155756dffbd34c4da6d586dafd0faec74e84"
 
   url "https://github.com/samuelb/whirr/releases/download/v#{version}/whirr-macos.dmg"
   name "Whirr"
