@@ -7,6 +7,10 @@ name: Publish
 # here (rather than duplicated per-caller) because both release pipelines
 # otherwise do the exact same checkout / commit / push dance against this
 # repo.
+#
+# Actions are pinned to full commit SHAs: samuelb/somad requires that of
+# every action its runs use, including those of the workflows it calls.
+# Dependabot keeps the pins current (.github/dependabot.yml).
 
 on:
   workflow_call:
@@ -30,13 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download rendered tap files
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: ${{ inputs.artifact_name }}
           path: rendered
 
       - name: Check out this repo
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           # Explicit: inside a reusable workflow, github.repository (the
           # default) is the *caller's* repo, not this one.

@@ -1,0 +1,21 @@
+# Keeps the SHA-pinned actions in .github/workflows/publish.yml current.
+# Minor/patch bumps come as one weekly PR; majors stay separate. Version
+# updates wait a week after a release (`cooldown`), since a compromised
+# release is usually caught and pulled within days; security updates do
+# not wait.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    assignees:
+      - "samuelb"
+    groups:
+      actions-minor-patch:
+        update-types: ["minor", "patch"]
