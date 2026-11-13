@@ -1,23 +1,23 @@
 class Somad < Formula
   desc "Client for streaming SomaFM radio channels"
   homepage "https://github.com/samuelb/somad"
-  version "0.19.1"
+  version "0.20.0"
   license "MIT"
 
   on_macos do
     url "https://github.com/samuelb/somad/releases/download/v#{version}/soma_darwin_universal"
     # Release automation replaces this placeholder with the published checksum.
-    sha256 "67f01f256a128e7fe3a525f366ceb0e236f5ffee68ea09c6b57ace178d658118"
+    sha256 "bdded3669bb90e1870b84a023ee4575ab4261632663b7487607a0b3b374dca71"
   end
 
   on_linux do
     on_arm do
       url "https://github.com/samuelb/somad/releases/download/v#{version}/soma_linux_arm64"
-      sha256 "d75c153319197911d428bdd63a1073e1729263b507cc1bda598479219aa0eace"
+      sha256 "5176767920d05d882923d48f080892fc64bd970c570b50d6648d59fd82d187a9"
     end
     on_intel do
       url "https://github.com/samuelb/somad/releases/download/v#{version}/soma_linux_amd64"
-      sha256 "434c297dfca95b660fffdce6ee0c99f65e044b5e5fb8f690c6ca5f2bdb908c82"
+      sha256 "267f003a2f8026bc3f456ebf31d3681c98e66d8b6c4d7a6c1eb8f4c193e43048"
     end
   end
 
